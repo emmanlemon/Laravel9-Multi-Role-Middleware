@@ -17,17 +17,17 @@ class CreateUserSeeder extends Seeder
     {
         $users = [
                 ['name'=>'User',
-                'email' => 'user@cambotutorial.com',
+                'email' => 'user@user.com',
                 'password' => bcrypt('123456'),
                 'role' => 0
                 ],
-                ['name'=>'Editor',
-                'email' => 'editor@cambotutorial.com',
+                ['name'=>'Superadmin',
+                'email' => 'super@admin.com',
                 'password' => bcrypt('123456'),
                 'role' => 1
                 ],
                 ['name'=>'Admin',
-                'email' => 'admin@cambotutorial.com',
+                'email' => 'admin@admin.com',
                 'password' => bcrypt('123456'),
                 'role' => 2
                 ]

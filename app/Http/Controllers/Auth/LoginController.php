@@ -52,9 +52,9 @@ class LoginController extends Controller
             {
                 return redirect()->route('home.admin');
             }
-            else if(auth()->user()->role == 'editor')
+            else if(auth()->user()->role == 'superadmin')
             {
-                return redirect()->route('home.editor');
+                return redirect()->route('home.superadmin');
             }
             else
             {

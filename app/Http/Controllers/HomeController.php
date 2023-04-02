@@ -26,7 +26,7 @@ class HomeController extends Controller
         return view('user.home',["msg"=>"I am user role"]);
     }
 
-    public function editorHome()
+    public function superadminHome()
     {
         return view('superadmin.home',["msg"=>"I am Editor role"]);
     }

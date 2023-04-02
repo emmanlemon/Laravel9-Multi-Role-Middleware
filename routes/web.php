@@ -24,10 +24,10 @@ Route::middleware(['auth','user-role:user'])->group(function()
     Route::get("/home",[HomeController::class,'userHome'])->name('home');
 });
 
-// Editor Route
-Route::middleware(['auth','user-role:editor'])->group(function()
+// superadmin Route
+Route::middleware(['auth','user-role:superadmin'])->group(function()
 {
-    Route::get("/editor/home",[HomeController::class,'editorHome'])->name('home.editor');
+    Route::get("/superadmin/home",[HomeController::class,'superadminHome'])->name('home.superadmin');
 });
 
 // Admin Route
