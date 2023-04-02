@@ -23,16 +23,16 @@ class HomeController extends Controller
      */
     public function userHome()
     {
-        return view('home',["msg"=>"I am user role"]);
+        return view('user.home',["msg"=>"I am user role"]);
     }
 
     public function editorHome()
     {
-        return view('home',["msg"=>"I am Editor role"]);
+        return view('superadmin.home',["msg"=>"I am Editor role"]);
     }
 
     public function adminHome()
     {
-        return view('home',["msg"=>"I am Admin role"]);
+        return view('admin.home',["msg"=>"I am Admin role"]);
     }
 }
