@@ -21,21 +21,43 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Auth::routes();
+// // User Route
+// Route::prefix('user')->group(function () {
+//     Route::get("/home",[HomeController::class,'userHome'])->name('home');
+// })->middleware('auth','user-role:user');
+
+// // superadmin Route
+// Route::prefix('superadmin')->group(function () {
+//     Route::get("/home",[HomeController::class,'superadminHome'])->name('home.superadmin');
+//     Route::resource("/serviceList" , ServiceListController::class);
+// })->middleware('auth','user-role:superadmin');
+
+// // Admin Route
+// Route::prefix('admin')->group(function () {
+//     Route::get("/home",[HomeController::class,'adminHome'])->name('home.admin');
+//     Route::resource("/shops" , ShopController::class);
+//     Route::resource("/service" , ServiceController::class);
+// })->middleware('auth','user-role:admin');
+
 Auth::routes();
 // User Route
-Route::prefix('user')->group(function () {
+Route::middleware(['auth','user-role:user'])->group(function()
+{
     Route::get("/home",[HomeController::class,'userHome'])->name('home');
-})->middleware('auth','user-role:user');
+});
 
 // superadmin Route
-Route::prefix('superadmin')->group(function () {
-    Route::get("/home",[HomeController::class,'superadminHome'])->name('home.superadmin');
+Route::middleware(['auth','user-role:superadmin'])->group(function()
+{
+    Route::get("/superadmin/home",[HomeController::class,'superadminHome'])->name('home.superadmin');
     Route::resource("/serviceList" , ServiceListController::class);
-})->middleware('auth','user-role:superadmin');
+});
 
 // Admin Route
-Route::prefix('admin')->group(function () {
-    Route::get("/home",[HomeController::class,'adminHome'])->name('home.admin');
+Route::middleware(['auth','user-role:admin'])->group(function()
+{
+    Route::get("/admin/home",[HomeController::class,'adminHome'])->name('home.admin');
     Route::resource("/shops" , ShopController::class);
     Route::resource("/service" , ServiceController::class);
-})->middleware('auth','user-role:admin');
+});

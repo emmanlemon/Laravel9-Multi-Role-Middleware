@@ -11,6 +11,19 @@ return new class extends Migration
      *
      * @return void
      */
+    // public function up()
+    // {
+    //     Schema::create('services', function (Blueprint $table) {
+    //         $table->id(); 
+    //         $table->unsignedBigInteger('shop_id');
+    //         $table->foreign('shop_id')
+    //                 ->references('id')->on('shops')
+    //                 ->onDelete('cascade');  
+    //         $table->string('service');  
+    //         $table->timestamps();
+    //     });
+    // }
+
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
