@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\Shops;
 
 class User extends Authenticatable
 {
@@ -19,6 +20,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role',
+        'active',
         'name',
         'email',
         'password',
@@ -48,5 +51,10 @@ class User extends Authenticatable
         return new Attribute(
             get: fn($value) => ["user","superadmin","admin"][$value],
         );
+    }
+
+    public function shops()
+    {
+        return $this->hasMany(Shops::class, 'users_id');
     }
 }

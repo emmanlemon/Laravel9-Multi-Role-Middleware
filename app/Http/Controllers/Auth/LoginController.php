@@ -46,7 +46,7 @@ class LoginController extends Controller
             'email'=>'required|email',
             'password'=>'required'
         ]);
-        if(auth()->attempt(['email'=>$input["email"], 'password'=>$input['password']]))
+        if(auth()->attempt(['email' => $input['email'], 'password' => $input['password'], 'active' => 1]))
         {
             if(auth()->user()->role == 'admin')
             {

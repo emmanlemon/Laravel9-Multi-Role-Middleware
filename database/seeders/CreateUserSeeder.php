@@ -16,17 +16,20 @@ class CreateUserSeeder extends Seeder
     public function run()
     {
         $users = [
-                ['name'=>'User',
+                ['active'=>'1',
+                'name'=>'User',
                 'email' => 'user@user.com',
                 'password' => bcrypt('123456'),
                 'role' => 0
                 ],
-                ['name'=>'Superadmin',
+                ['active'=>'1',
+                'name'=>'Superadmin',
                 'email' => 'super@admin.com',
                 'password' => bcrypt('123456'),
                 'role' => 1
                 ],
-                ['name'=>'Admin',
+                ['active'=>'1',
+                'name'=>'Admin',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt('123456'),
                 'role' => 2

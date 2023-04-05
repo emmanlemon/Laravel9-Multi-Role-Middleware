@@ -32,7 +32,8 @@ return new class extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_role_id');
+            $table->string('shop_name');
+            $table->unsignedBigInteger('user_role_id')->default(2);
             $table->foreign('user_role_id')
                     ->references('id')->on('users')
                     ->onDelete('cascade');
