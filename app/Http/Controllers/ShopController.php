@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shops;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -15,10 +16,14 @@ class ShopController extends Controller
      */
     public function index()
     {
-        // return view('superadmin.shop',["msg"=>"This is Shop"]);
-        $shops = Shops::all();
-
-        return view('superadmin.shop', compact('shops'));
+        // $shops = Shops::all();
+        // return view('superadmin.shop', compact('shops'));
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->get();
+        // $shops = Shops::with('user')->get();
+        return view('superadmin.shop', compact('usersAndShops'));
     }
 
     /**

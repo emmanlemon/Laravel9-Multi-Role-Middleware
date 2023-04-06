@@ -12,4 +12,9 @@ class Shops extends Model
     protected $fillable = [
         'status' , 'logo' , 'shop_name'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

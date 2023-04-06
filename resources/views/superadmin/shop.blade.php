@@ -34,23 +34,39 @@
                 <table id="datatable" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>shop_name</th>
-                            <th>created_at</th>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Shop Name</th>
+                            <th class="text-center">Owner</th>
+                            <th class="text-center">Active</th>
+                            <th class="text-center">Date Created</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($shops as $shop)
+                        @foreach($usersAndShops as $row)
                             <tr>
-                                <td>{{ $shop->id }}</td>
-                                <td>{{ $shop->shop_name }}</td>
-                                <td>{{ $shop->created_at }}</td>
+                                <td class="text-center">{{ $row->id }}</td>
+                                <td class="text-center">{{ $row->shop_name }}</td>
+                                <td class="text-center">{{ $row->name }}</td>
+                                <td class="text-center">{{ $row->status }}</td>
+                                <td class="text-center">{{ $row->created_at }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('shops.show', $row->id) }}" class="btn btn-info">View</a>
+                                    <a href="{{ route('shops.edit', $row->id) }}" class="btn btn-primary">Edit</a>
+                                    <form action="{{ route('shops.destroy', $row->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
+        
+
 
           
 
