@@ -53,13 +53,39 @@
                                 <td class="text-center">
                                     <a href="{{ route('shops.show', $row->id) }}" class="btn btn-info">View</a>
                                     <a href="{{ route('shops.edit', $row->id) }}" class="btn btn-primary">Edit</a>
-                                    <form action="{{ route('shops.destroy', $row->id) }}" method="POST" style="display: inline-block;">
+                                    <a href="#" data-toggle="modal" data-target="#deleteModal{{ $row->id }}" class="btn btn-danger">Delete</a>
+                                    {{-- <form action="{{ route('shops.destroy', $row->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
+
+                            <!-- Modal -->
+<div class="modal fade" id="deleteModal{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to delete this user?
+          </div>
+          <div class="modal-footer">
+              <form method="POST" action="{{ route('shops.destroy', $row->id) }}">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
                         @endforeach
                     </tbody>
                 </table>

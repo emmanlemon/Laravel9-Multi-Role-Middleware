@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shops;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Faker\Guesser\Name;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +34,11 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        $user = User::create([
+        // dd($data['role']);
+
+        if (isset($data['role'])) {
+
+            $user = User::create([
             'role' => $data['role'],
             'name' => $data['name'],
             'email' => $data['email'],
@@ -42,7 +47,7 @@ class RegisterController extends Controller
 
         $shop = $user->shops()->create([
             'shop_name' => $data['shop_name'],
-            'user_role_id' => $user->role,
+            'user_role_id' => $data['role'],
             'users_id' => $user->id,
         ]);
 
@@ -52,6 +57,14 @@ class RegisterController extends Controller
         }
 
         return $user;
+
+        } else {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
     }
 
     protected function registered($request, $user)

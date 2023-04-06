@@ -114,8 +114,20 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shops $shops)
+    public function destroy(Shops $shops, User $user, $id)
     {
+        // $user = User::findOrFail($request->users_id);
+
+        $usersAndShops = DB::table('users')
+        ->join('shops', 'users.id', '=', 'shops.users_id')
+        ->select('users_id')
+        ->where('shops.id', '=', $id)
+        ->get();
+        $user = User::find($usersAndShops[0]->users_id);
+        // dd($user);
+        $user->delete();
+
+        $shops = Shops::findOrFail($id);
         $shops->delete();
         return redirect()->back()->with('message', 'Shops Deleted Successfully.');
     }
