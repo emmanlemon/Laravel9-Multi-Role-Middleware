@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Shops</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">Shops</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -48,7 +48,7 @@
                                 <td class="text-center">{{ $row->id }}</td>
                                 <td class="text-center">{{ $row->shop_name }}</td>
                                 <td class="text-center">{{ $row->name }}</td>
-                                <td class="text-center">{{ $row->status }}</td>
+                                <td class="text-center">{{ $row->status == 1 ? 'Active' : 'Not Active' }}</td>
                                 <td class="text-center">{{ $row->created_at }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('shops.show', $row->id) }}" class="btn btn-info">View</a>

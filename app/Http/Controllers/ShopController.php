@@ -23,7 +23,7 @@ class ShopController extends Controller
                         ->select('users.*', 'shops.*')
                         ->get();
         // $shops = Shops::with('user')->get();
-        return view('superadmin.shop', compact('usersAndShops'));
+        return view('superadmin.shop.index', compact('usersAndShops'));
     }
 
     /**
@@ -67,7 +67,14 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usersAndShops = DB::table('users')
+        ->join('shops', 'users.id', '=', 'shops.users_id')
+        ->select('users.*', 'shops.*')
+        ->where('shops.id', '=', $id)
+        ->get();
+
+
+        dd($usersAndShops->toArray());
     }
 
     /**

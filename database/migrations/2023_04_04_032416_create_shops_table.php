@@ -41,7 +41,7 @@ return new class extends Migration
             $table->foreign('users_id')
                     ->references('id')->on('users')
                     ->onDelete('cascade');
-            $table->string('status')->default(0);
+            $table->unsignedBigInteger('status')->default(0);
             $table->string('logo')->default('default.png');
             $table->timestamps();
         });
