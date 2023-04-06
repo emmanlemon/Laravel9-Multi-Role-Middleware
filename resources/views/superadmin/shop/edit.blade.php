@@ -61,12 +61,6 @@
             <h3 class="card-title">List of Shops</h3>
     
             <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
         </div>
         <!-- /.card-header -->
@@ -76,18 +70,20 @@
             @foreach ($usersAndShops as $userAndShop)
                 <div class="card-body">
                     <div class="row">
+                      <input id="users_id" type="text" name="users_id" class="form-control d-none" value="{{ $userAndShop->users_id }}"
+                                    style="width: 100%;" required>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Shop Name</label>
-                                <input type="text" class="form-control" value="{{ $userAndShop->shop_name }}"
-                                    style="width: 100%;">
+                                <input id="shop_name" type="text" name="shop_name" class="form-control" value="{{ $userAndShop->shop_name }}"
+                                    style="width: 100%;" required>
                             </div>
     
                             <!-- /.form-group -->
                             <div class="form-group">
                               <label>Email</label>
-                              <input type="text" class="form-control" value="{{ $userAndShop->email }}"
-                                  style="width: 100%;">
+                              <input id="email" type="text" name="email" class="form-control" value="{{ $userAndShop->email }}"
+                                  style="width: 100%;" required>
                           </div>
                             <!-- /.form-group -->
                         </div>
@@ -95,15 +91,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                               <label>Owner Name</label>
-                              <input type="text" class="form-control" value="{{ $userAndShop->name }}"
-                                  style="width: 100%;">
+                              <input id="name" type="text" name="name" class="form-control" value="{{ $userAndShop->name }}"
+                                  style="width: 100%;" required>
                           </div>
     
                             <!-- /.form-group -->
                             <div class="form-group">
                               <label>Status</label>
-                              <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                <option selected="selected">{{ $userAndShop->status == 1 ? 'Active' : 'Not Active' }}</option>
+                              <select id="status" name="status" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                <option value="{{$userAndShop->status}}" selected="selected">{{ $userAndShop->status == 1 ? 'Active' : 'Not Active' }}</option>
                                 <option value="1">Active</option>
                                 <option value="0">Not Active</option>
                               </select>
@@ -119,11 +115,6 @@
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </form>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-            the plugin.
-        </div>
     </div>
     
 

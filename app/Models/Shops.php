@@ -10,7 +10,11 @@ class Shops extends Model
     use HasFactory;
     
     protected $fillable = [
-        'status' , 'logo' , 'shop_name'
+        'status',
+        'logo',
+        'shop_name',
+        'user_role_id',
+        'users_id',
     ];
 
     public function user()

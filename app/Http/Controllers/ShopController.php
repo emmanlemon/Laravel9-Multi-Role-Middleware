@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shops;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
@@ -88,11 +89,24 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shops $shops)
+    public function update(Request $request, Shops $shops, User $user, $id)
     {
-        $shops->update($request->all());
+        $shops = Shops::findOrFail($id);
+        $shops->update([
+            'shop_name' => $request->input('shop_name'),
+            'status' => $request->input('status'),
+        ]);
+    
+        $user = User::findOrFail($request->users_id);
+        $user->update([
+            'email' => $request->input('email'),
+            'name' => $request->input('name'),
+            'active' => $request->input('status'),
+        ]);
+    
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
