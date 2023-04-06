@@ -45,14 +45,16 @@
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item">
-                      <a href="{{ route('home.superadmin') }}" class="nav-link active">
+                      <a href="{{ route('home.superadmin') }}" class="nav-link {{ Route::current()->getName() == "home.superadmin" ? 'active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
+                          {{-- {{ Route::current()->getName() }} --}}
                           <p>Dashboard</p>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ route('shops.index') }}" class="nav-link">
+                      <a href="{{ route('shops.index') }}" class="nav-link {{ Route::current()->getName() == "shops.index" ? 'active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
+                          {{-- {{ Route::current()->getName() }} --}}
                           <p>Shops</p>
                       </a>
                   </li>
