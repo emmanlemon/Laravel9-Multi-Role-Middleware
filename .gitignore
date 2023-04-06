@@ -1,0 +1,20 @@
+# Ignore vendor directory
+/vendor
+
+# Ignore node_modules directory
+/node_modules
+
+# Ignore .env file
+.env
+
+# Ignore user-uploaded files and dynamically generated files
+/public/storage
+
+# Ignore sensitive encryption keys
+/storage/*.key
+
+# Ignore PHPStorm configuration files
+/.idea
+
+# Ignore Laravel cached files
+/bootstrap/cache
