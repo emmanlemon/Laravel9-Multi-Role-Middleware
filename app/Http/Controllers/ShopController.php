@@ -57,12 +57,13 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        // $usersAndShops = DB::table('users')
-        // ->join('shops', 'users.id', '=', 'shops.users_id')
-        // ->select('users.*', 'shops.*')
-        // ->where('shops.id', '=', $id)
-        // ->get();
+        $usersAndShops = DB::table('users')
+        ->join('shops', 'users.id', '=', 'shops.users_id')
+        ->select('users.*', 'shops.*')
+        ->where('shops.id', '=', $id)
+        ->get();
 
+        return view('superadmin.shop.view', compact('usersAndShops'));
     }
 
     /**
