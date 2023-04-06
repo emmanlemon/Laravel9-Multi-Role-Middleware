@@ -16,9 +16,9 @@ class ShopController extends Controller
     public function index()
     {
         // return view('superadmin.shop',["msg"=>"This is Shop"]);
-        $users = Shops::all();
+        $shops = Shops::all();
 
-        return view('superadmin.shop', compact('users'));
+        return view('superadmin.shop', compact('shops'));
     }
 
     /**

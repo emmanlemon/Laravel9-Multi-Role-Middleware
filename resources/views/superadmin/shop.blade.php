@@ -35,16 +35,16 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>shop_name</th>
+                            <th>created_at</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach($shops as $shop)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $shop->id }}</td>
+                                <td>{{ $shop->shop_name }}</td>
+                                <td>{{ $shop->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>
