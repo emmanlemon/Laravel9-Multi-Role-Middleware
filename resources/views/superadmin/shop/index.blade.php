@@ -53,53 +53,153 @@
                                             </td>
                                             <td class="text-center">{{ $row->created_at }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('shops.show', $row->id) }}"
+                                                <a href="#" data-toggle="modal"
+                                                      data-target="#viewModal{{ $row->id }}"
+                                                      class="btn btn-primary btn-sm"><i class="fas fa-folder">
+                                                      </i>View</a>
+                                                {{-- <a href="{{ route('shops.show', $row->id) }}"
                                                     class="btn btn-primary btn-sm">
                                                     <i class="fas fa-folder">
-                                                    </i>View</a>
-                                                <a href="{{ route('shops.edit', $row->id) }}" class="btn btn-info btn-sm"><i
+                                                    </i>View</a> --}}
+                                                <a href="#" data-toggle="modal"
+                                                      data-target="#editModal{{ $row->id }}"
+                                                      class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt">
+                                                      </i>Edit</a>
+                                                {{-- <a href="{{ route('shops.edit', $row->id) }}" class="btn btn-info btn-sm"><i
                                                         class="fas fa-pencil-alt">
-                                                    </i>Edit</a>
+                                                    </i>Edit</a> --}}
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#deleteModal{{ $row->id }}"
                                                     class="btn btn-danger btn-sm"><i class="fas fa-trash">
                                                     </i>Delete</a>
-                                                {{-- <form action="{{ route('shops.destroy', $row->id) }}" method="POST" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form> --}}
                                             </td>
                                         </tr>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="deleteModal{{ $row->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Are you sure you want to delete this user?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form method="POST"
-                                                            action="{{ route('shops.destroy', $row->id) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close</button>
-                                                    </div>
+                                        <!-- View Modal -->
+                                        <div class="modal fade" id="viewModal{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-lg" role="document">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h5 class="modal-title" id="viewModalLabel">View Shop</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      {{ $row->id }}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <!-- Edit Modal -->
+                                      <div class="modal fade" id="editModal{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Edit Shop</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card card-default">
+                                                      <div class="card-header">
+                                                          <h3 class="card-title">List of Shops</h3>
+                              
+                                                          <div class="card-tools">
+                                                          </div>
+                                                      </div>
+                                                      <!-- /.card-header -->
+                                                      <form method="POST" action="{{ route('shops.update', $row->id) }}">
+                                                          @csrf
+                                                          @method('PUT')
+                                                              @if (session('message'))
+                                                                  <div class="alert alert-success">
+                                                                      {{ session('message') }}
+                                                                  </div>
+                                                              @endif
+                                                              <div class="card-body">
+                                                                  <div class="row">
+                                                                      <input id="users_id" type="text" name="users_id" class="form-control d-none"
+                                                                          value="{{ $row->users_id }}" style="width: 100%;" required>
+                                                                      <div class="col-md-6">
+                                                                          <div class="form-group">
+                                                                              <label>Shop Name</label>
+                                                                              <input id="shop_name" type="text" name="shop_name" class="form-control"
+                                                                                  value="{{ $row->shop_name }}" style="width: 100%;" required>
+                                                                          </div>
+                                                                          <!-- /.form-group -->
+                                                                          <div class="form-group">
+                                                                              <label>Email</label>
+                                                                              <input id="email" type="text" name="email" class="form-control"
+                                                                                  value="{{ $row->email }}" style="width: 100%;" required>
+                                                                          </div>
+                                                                          <!-- /.form-group -->
+                                                                      </div>
+                                                                      <!-- /.col -->
+                                                                      <div class="col-md-6">
+                                                                          <div class="form-group">
+                                                                              <label>Owner Name</label>
+                                                                              <input id="name" type="text" name="name" class="form-control"
+                                                                                  value="{{ $row->name }}" style="width: 100%;" required>
+                                                                          </div>
+                                                                          <!-- /.form-group -->
+                                                                          <div class="form-group">
+                                                                              <label>Status</label>
+                                                                              <select id="status" name="status"
+                                                                                  class="form-control select2 select2-danger"
+                                                                                  data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                                                                  <option value="{{ $row->status }}" selected="selected">
+                                                                                      {{ $row->status == 1 ? 'Active' : 'Not Active' }}</option>
+                                                                                  <option value="1">Active</option>
+                                                                                  <option value="0">Not Active</option>
+                                                                              </select>
+                                                                          </div>
+                                                                          <!-- /.form-group -->
+                                                                      </div>
+                                                                      <!-- /.col -->
+                                                                  </div>
+                                                                  <!-- /.row -->
+                                                              </div>
+                                                          <div class="card-footer">
+                                                              <button type="submit" class="btn btn-primary">Save changes</button>
+                                                          </div>
+                                                      </form>
+                                                  </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteModal{{ $row->id }}" tabindex="-1"
+                                          role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h5 class="modal-title" id="deleteModalLabel">Delete Shop</h5>
+                                                      <button type="button" class="close" data-dismiss="modal"
+                                                          aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      Are you sure you want to delete this shop?
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <form method="POST"
+                                                          action="{{ route('shops.destroy', $row->id) }}">
+                                                          @csrf
+                                                          @method('DELETE')
+                                                          <button type="submit" class="btn btn-danger">Delete</button>
+                                                      </form>
+                                                      <button type="button" class="btn btn-secondary"
+                                                          data-dismiss="modal">Close</button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
                                     @endforeach
                                     @if (session('message'))
                                         <div class="alert alert-success">
