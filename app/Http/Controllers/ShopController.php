@@ -124,11 +124,11 @@ class ShopController extends Controller
         ->where('shops.id', '=', $id)
         ->get();
         $user = User::find($usersAndShops[0]->users_id);
-        // dd($user);
         $user->delete();
 
-        $shops = Shops::findOrFail($id);
-        $shops->delete();
+        // $shops = Shops::find($id);
+        // // dd($shops);
+        // $shops->delete();
         return redirect()->back()->with('message', 'Shops Deleted Successfully.');
     }
 }
