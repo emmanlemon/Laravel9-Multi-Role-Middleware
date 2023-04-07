@@ -43,6 +43,7 @@ return new class extends Migration
                     ->onDelete('cascade');
             $table->unsignedBigInteger('status')->default(0);
             $table->string('logo')->default('default.png');
+            $table->string('address');
             $table->timestamps();
         });
     }

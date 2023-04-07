@@ -107,6 +107,7 @@ class ShopController extends Controller
         $shops->update([
             'shop_name' => $request->input('shop_name'),
             'status' => $request->input('status'),
+            'address' => $request->input('address'),
         ]);
     
         $user = User::findOrFail($request->users_id);

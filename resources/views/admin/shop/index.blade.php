@@ -401,12 +401,19 @@
                                                                             value="{{ $userAndShop->status == 1 ? 'Active' : 'Not Active' }}"
                                                                             style="width: 100%;" disabled>
                                                     </div>
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label>Date Updated</label>
                                                         <input id="name" type="text"
                                                             name="status" class="form-control"
                                                             value="{{ \Carbon\Carbon::parse($userAndShop->updated_at)->format('F j, Y, g:i a') }}"
                                                             style="width: 100%;" disabled>
+                                                    </div> --}}
+                                                    <div class="form-group">
+                                                        <label>Location</label>
+                                                        <input id="address" type="text"
+                                                            name="address" class="form-control"
+                                                            value="{{ $userAndShop->address }}"
+                                                            style="width: 100%;" required>
                                                     </div>
                                                     <!-- /.form-group -->
                                                 </div>

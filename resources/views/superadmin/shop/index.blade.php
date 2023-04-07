@@ -38,7 +38,7 @@
                                         <th class="text-center">Shop Name</th>
                                         <th class="text-center">Owner</th>
                                         <th class="text-center">Active</th>
-                                        <th class="text-center">Date Created</th>
+                                        <th class="text-center">Location</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -51,7 +51,7 @@
                                             <td class="text-center"><span
                                                     class="{{ $row->status == 1 ? 'badge badge-success' : 'badge badge-danger' }}">{{ $row->status == 1 ? 'Active' : 'Not Active' }}</span>
                                             </td>
-                                            <td class="text-center">{{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}</td>
+                                            <td class="text-center">{{ $row->address }}</td>
                                             <td class="text-center">
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#viewModal{{ $row->id }}"
@@ -240,6 +240,13 @@
                                                                                 <input id="email" type="text"
                                                                                     name="email" class="form-control"
                                                                                     value="{{ $row->email }}"
+                                                                                    style="width: 100%;" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Location</label>
+                                                                                <input id="address" type="text"
+                                                                                    name="address" class="form-control"
+                                                                                    value="{{ $row->address }}"
                                                                                     style="width: 100%;" required>
                                                                             </div>
                                                                             <!-- /.form-group -->
