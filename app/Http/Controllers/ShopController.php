@@ -164,17 +164,33 @@ class ShopController extends Controller
 ///////////////////////////////////////////////////////////////////////////////////////////////////// FUNCTION FOR USER///////////////////////////////////////////////////////////////////////////////////// ///////////////////////// 
 
     public function userShop()
-{
-    // $user = auth()->user();
-    $userId = auth()->id();
-    $usersAndShops = DB::table('users')
-                    ->join('shops', 'users.id', '=', 'shops.users_id')
-                    ->select('users.*', 'shops.*')
-                    ->where('shops.status', '=', 1)
-                    ->where('users.active', '=', 1)
-                    ->get();
-    
-    // dd($usersAndShops);
-    return view('user.shop.index', compact('usersAndShops'));
-}
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('shops.status', '=', 1)
+                        ->where('users.active', '=', 1)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('user.shop.index', compact('usersAndShops'));
+    }
+
+    public function userShopView($id)
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('shops.status', '=', 1)
+                        ->where('users.active', '=', 1)
+                        ->where('shops.id', '=', $id)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('user.shop.view', compact('usersAndShops'));
+    }
 }

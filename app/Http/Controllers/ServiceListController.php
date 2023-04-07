@@ -15,7 +15,9 @@ class ServiceListController extends Controller
      */
     public function index()
     {
-        //
+        $serviceList = ServiceList::all();
+        // dd( $serviceList);
+        return view('superadmin.serviceList.index', compact('serviceList'));
     }
 
     /**

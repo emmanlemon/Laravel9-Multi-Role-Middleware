@@ -59,9 +59,9 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="./index3.html" class="nav-link">
+                      <a href="{{ route('serviceList.index') }}" class="nav-link {{ Route::current()->getName() == "serviceList.index" ? 'active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Dashboard v3</p>
+                          <p>Service List</p>
                       </a>
                   </li>
               </ul>

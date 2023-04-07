@@ -34,12 +34,12 @@
                 <div class="row">
                   @foreach ($usersAndShops as $userAndShop)
                   <div class="col-md-4">
-                    <a href="{{ url('/users/'.$userAndShop->id) }}" class="card-link">
+                    <a href="{{ route('shops.userShopView', $userAndShop->id) }}" class="card-link">
                     <div class="card card-widget widget-user">
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="widget-user-header text-white" style="background: url('{{asset('admin-assets/dist/img/photo1.png')}}') center center;">
                         <h3 class="widget-user-username text-right">{{ $userAndShop->shop_name}}</h3>
-                        <h5 class="widget-user-desc text-right">{{ $userAndShop->address}}</h5>
+                        <h5 class="widget-user-desc text-right"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ $userAndShop->address}}</h5>
                       </div>
                       <div class="widget-user-image">
                         <img class="img-circle" src="{{asset('admin-assets/dist/img/user3-128x128.jpg')}}" alt="User Avatar">
@@ -47,26 +47,26 @@
                       <div class="card-footer">
                         <div class="row">
                           <div class="col-sm-4 border-right">
-                            <div class="description-block">
+                            {{-- <div class="description-block">
                               <h5 class="description-header">3,200</h5>
                               <span class="description-text">SALES</span>
-                            </div>
+                            </div> --}}
                             <!-- /.description-block -->
                           </div>
                           <!-- /.col -->
                           <div class="col-sm-4 border-right">
                             <div class="description-block">
-                              <h5 class="description-header">13,000</h5>
-                              <span class="description-text">FOLLOWERS</span>
+                              <h5 class="description-header">{{ $userAndShop->name}}</h5>
+                              <span class="description-text">Owner</span>
                             </div>
                             <!-- /.description-block -->
                           </div>
                           <!-- /.col -->
                           <div class="col-sm-4">
-                            <div class="description-block">
+                            {{-- <div class="description-block">
                               <h5 class="description-header">35</h5>
                               <span class="description-text">PRODUCTS</span>
-                            </div>
+                            </div> --}}
                             <!-- /.description-block -->
                           </div>
                           <!-- /.col -->
