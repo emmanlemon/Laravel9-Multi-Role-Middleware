@@ -15,9 +15,9 @@ class ServiceListController extends Controller
      */
     public function index()
     {
-        $serviceList = ServiceList::all();
+        $serviceLists = ServiceList::all();
         // dd( $serviceList);
-        return view('superadmin.serviceList.index', compact('serviceList'));
+        return view('superadmin.serviceList.index', compact('serviceLists'));
     }
 
     /**
@@ -71,9 +71,12 @@ class ServiceListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ServiceList $servicelist)
+    public function update(Request $request, $id)
     {
-        $servicelist->update($request->all());
+        $serviceList = ServiceList::findOrFail($id);
+        $serviceList->update([
+            'service' => $request->input('service'),
+        ]);
         return redirect()->back()->with('message', 'Service Updated successfully.');
     }
 
@@ -83,8 +86,10 @@ class ServiceListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceList $servicelist)
+    public function destroy(ServiceList $servicelist, $id)
     {
+        $servicelist = ServiceList::findOrFail($id);
+        // dd($servicelist->toArray());
         $servicelist->delete();
         return redirect()->back()->with('message', 'Service Deleted Successfully.');
     }
