@@ -159,9 +159,22 @@ class ShopController extends Controller
     
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
-}
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////// FUNCTION FOR USER///////////////////////////////////////////////////////////////////////////////////// ///////////////////////// 
 
+    public function userShop()
+{
+    // $user = auth()->user();
+    $userId = auth()->id();
+    $usersAndShops = DB::table('users')
+                    ->join('shops', 'users.id', '=', 'shops.users_id')
+                    ->select('users.*', 'shops.*')
+                    ->where('shops.status', '=', 1)
+                    ->where('users.active', '=', 1)
+                    ->get();
+    
+    // dd($usersAndShops);
+    return view('user.shop.index', compact('usersAndShops'));
+}
+}

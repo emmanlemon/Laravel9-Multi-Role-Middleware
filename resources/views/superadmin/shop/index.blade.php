@@ -222,11 +222,11 @@
                                                                 action="{{ route('shops.update', $row->id) }}">
                                                                 @csrf
                                                                 @method('PUT')
-                                                                @if (session('message'))
+                                                                {{-- @if (session('message'))
                                                                     <div class="alert alert-success">
                                                                         {{ session('message') }}
                                                                     </div>
-                                                                @endif
+                                                                @endif --}}
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <input id="users_id" type="text" name="users_id"
