@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@include('partials.admin.left-sidebar')
+@include('partials.user.left-sidebar')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -26,7 +26,7 @@
               text-decoration: none;
             }
           </style>
-          
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -39,7 +39,7 @@
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="widget-user-header text-white" style="background: url('{{asset('admin-assets/dist/img/photo1.png')}}') center center;">
                         <h3 class="widget-user-username text-right">{{ $userAndShop->shop_name}}</h3>
-                        <h5 class="widget-user-desc text-right">Web Designer</h5>
+                        <h5 class="widget-user-desc text-right">{{ $userAndShop->address}}</h5>
                       </div>
                       <div class="widget-user-image">
                         <img class="img-circle" src="{{asset('admin-assets/dist/img/user3-128x128.jpg')}}" alt="User Avatar">
