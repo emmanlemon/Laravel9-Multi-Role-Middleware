@@ -17,14 +17,25 @@ class ShopController extends Controller
      */
     public function index()
     {
-        // $shops = Shops::all();
-        // return view('superadmin.shop', compact('shops'));
         $usersAndShops = DB::table('users')
                         ->join('shops', 'users.id', '=', 'shops.users_id')
                         ->select('users.*', 'shops.*')
                         ->get();
-        // $shops = Shops::with('user')->get();
         return view('superadmin.shop.index', compact('usersAndShops'));
+    }
+
+    public function myShop()
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('users.id', '=', $userId)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('admin.shop.index', compact('usersAndShops'));
     }
 
     /**

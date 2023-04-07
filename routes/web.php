@@ -59,6 +59,6 @@ Route::middleware(['auth','user-role:superadmin'])->group(function()
 Route::middleware(['auth','user-role:admin'])->group(function()
 {
     Route::get("/admin/home",[HomeController::class,'adminHome'])->name('home.admin');
-    // Route::resource("/shops" , ShopController::class);
+    Route::get("/admin/shops" , [ShopController::class,'myShop'])->name('shops.myShop');
     // Route::resource("/service" , ServiceController::class);
 });
