@@ -24,20 +24,6 @@ class ShopController extends Controller
         return view('superadmin.shop.index', compact('usersAndShops'));
     }
 
-    public function myShop()
-    {
-        // $user = auth()->user();
-        $userId = auth()->id();
-        $usersAndShops = DB::table('users')
-                        ->join('shops', 'users.id', '=', 'shops.users_id')
-                        ->select('users.*', 'shops.*')
-                        ->where('users.id', '=', $userId)
-                        ->get();
-        
-        // dd($usersAndShops);
-        return view('admin.shop.index', compact('usersAndShops'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -90,8 +76,8 @@ class ShopController extends Controller
         ->select('users.*', 'shops.*')
         ->where('shops.id', '=', $id)
         ->get();
-        return view('superadmin.shop.edit', compact('usersAndShops', 'id'));
 
+        return view('superadmin.shop.edit', compact('usersAndShops', 'id'));
     }
 
     /**
@@ -120,6 +106,43 @@ class ShopController extends Controller
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Shops $shops, User $user, $id)
+    {
+        $usersAndShops = DB::table('users')
+        ->join('shops', 'users.id', '=', 'shops.users_id')
+        ->select('users_id')
+        ->where('shops.id', '=', $id)
+        ->get();
+        $user = User::find($usersAndShops[0]->users_id);
+        $user->delete();
+
+        return redirect()->back()->with('message', 'Shops Deleted Successfully.');
+    }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////// FUNCTION FOR ADMIN///////////////////////////////////////////////////////////////////////////////////// ///////////////////////// 
+
+    public function myShop()
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('users.id', '=', $userId)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('admin.shop.index', compact('usersAndShops'));
+    }
+
     public function myShopUpdate(Request $request, Shops $shops, User $user, $id)
     {
         $shops = Shops::findOrFail($id);
@@ -136,29 +159,9 @@ class ShopController extends Controller
     
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Shops $shops, User $user, $id)
-    {
-        // $user = User::findOrFail($request->users_id);
-
-        $usersAndShops = DB::table('users')
-        ->join('shops', 'users.id', '=', 'shops.users_id')
-        ->select('users_id')
-        ->where('shops.id', '=', $id)
-        ->get();
-        $user = User::find($usersAndShops[0]->users_id);
-        $user->delete();
-
-        // $shops = Shops::find($id);
-        // // dd($shops);
-        // $shops->delete();
-        return redirect()->back()->with('message', 'Shops Deleted Successfully.');
-    }
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////// FUNCTION FOR USER///////////////////////////////////////////////////////////////////////////////////// ///////////////////////// 
+

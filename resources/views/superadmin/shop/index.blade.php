@@ -134,6 +134,13 @@
                                                                           value="{{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}"
                                                                           style="width: 100%;" disabled>
                                                                   </div>
+                                                                  <div class="form-group">
+                                                                    <label>Location</label>
+                                                                    <input id="address" type="text"
+                                                                        name="address" class="form-control"
+                                                                        value="{{ $row->address }}"
+                                                                        style="width: 100%;" disabled>
+                                                                </div>
                                                                     <!-- /.form-group -->
                                                                 </div>
                                                                 <!-- /.col -->
