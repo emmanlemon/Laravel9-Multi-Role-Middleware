@@ -119,6 +119,23 @@ class ShopController extends Controller
     
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
+
+    public function myShopUpdate(Request $request, Shops $shops, User $user, $id)
+    {
+        $shops = Shops::findOrFail($id);
+        $shops->update([
+            'shop_name' => $request->input('shop_name'),
+            'address' => $request->input('address'),
+        ]);
+    
+        $user = User::findOrFail($request->users_id);
+        $user->update([
+            'email' => $request->input('email'),
+            'name' => $request->input('name'),
+        ]);
+    
+        return redirect()->back()->with('message', 'Shops Updated successfully.');
+    }
     
 
     /**

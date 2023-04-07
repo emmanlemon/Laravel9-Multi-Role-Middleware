@@ -344,7 +344,7 @@
                                 <!-- /.card-header -->
                                 
                                     <form method="POST"
-                                        action="{{ route('shops.update', $userAndShop->id) }}">
+                                        action="{{ route('shops.myShopUpdate', $userAndShop->id) }}">
                                         @csrf
                                         @method('PUT')
 
@@ -396,10 +396,18 @@
                                                     <!-- /.form-group -->
                                                     <div class="form-group">
                                                         <label>Status</label>
-                                                        <input id="name" type="text"
-                                                                            name="status" class="form-control"
-                                                                            value="{{ $userAndShop->status == 1 ? 'Active' : 'Not Active' }}"
-                                                                            style="width: 100%;" disabled>
+                                                        <select id="status" name="status"
+                                                            class="form-control select2 select2-danger"
+                                                            data-dropdown-css-class="select2-danger"
+                                                            style="width: 100%;" disabled>
+                                                            <option value="{{ $userAndShop->status }}"
+                                                                selected="selected">
+                                                                {{ $userAndShop->status == 1 ? 'Active' : 'Not Active' }}
+                                                            </option>
+                                                            <option value="1">Active</option>
+                                                            <option value="0">Not Active
+                                                            </option>
+                                                        </select>
                                                     </div>
                                                     {{-- <div class="form-group">
                                                         <label>Date Updated</label>

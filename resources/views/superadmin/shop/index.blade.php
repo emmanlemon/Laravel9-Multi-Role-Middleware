@@ -155,8 +155,8 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                       <label>Date Updated</label>
-                                                                      <input id="name" type="text"
-                                                                          name="status" class="form-control"
+                                                                      <input id="updated_at" type="text"
+                                                                          name="updated_at" class="form-control"
                                                                           value="{{ \Carbon\Carbon::parse($row->updated_at)->format('F j, Y, g:i a') }}"
                                                                           style="width: 100%;" disabled>
                                                                   </div>

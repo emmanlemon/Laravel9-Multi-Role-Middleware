@@ -60,5 +60,6 @@ Route::middleware(['auth','user-role:admin'])->group(function()
 {
     Route::get("/admin/home",[HomeController::class,'adminHome'])->name('home.admin');
     Route::get("/admin/shops" , [ShopController::class,'myShop'])->name('shops.myShop');
+    Route::put("/admin/shops/{shop}" , [ShopController::class,'myShopUpdate'])->name('shops.myShopUpdate');
     // Route::resource("/service" , ServiceController::class);
 });
