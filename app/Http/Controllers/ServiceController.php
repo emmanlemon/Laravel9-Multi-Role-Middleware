@@ -16,11 +16,28 @@ class ServiceController extends Controller
      */
     public function index()
     {
+    // +"id": 1
+    // +"shop_id": 1
+    // +"service_list_id": 1
+    // +"vehicle_lists_id": 1
+    // +"service": "Wash"
+    // +"price": 1000
+    // +"created_at": "2023-04-08 11:45:17"
+    // +"updated_at": "2023-04-08 11:45:17"
+    // +"shop_name": "shopName"
+    // +"user_role_id": 2
+    // +"users_id": 4
+    // +"status": 1
+    // +"logo": "default.png"
+    // +"address": "dagups"
+    // +"vehicle_type": "2 Wheeler"
+        $userId = auth()->id();
         $services = DB::table('services')
                         ->join('shops', 'services.shop_id', '=', 'shops.id')
                         ->join('service_lists', 'services.service_list_id', '=', 'service_lists.id')
                         ->join('vehicle_lists', 'services.vehicle_lists_id', '=', 'vehicle_lists.id')
                         ->select('services.*', 'shops.*', 'service_lists.*', 'vehicle_lists.*')
+                        ->where('shops.users_id', '=', $userId)
                         ->get();
         // dd( $services->toArray());
         return view('admin.services.index', compact('services'));

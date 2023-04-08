@@ -328,8 +328,11 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Service</th>
-                                <th class="text-center">Date Created</th>
-                                <th class="text-center">Date Updated</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Vehicle Type</th>
+                                <th class="text-center">Shop Name</th>
+                                <th class="text-center">Location</th>
+                                <th class="text-center">Created Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -339,10 +342,12 @@
 
                                     <td class="text-center">{{ $row->id }}</td>
                                     <td class="text-center">{{ $row->service }}</td>
+                                    <td class="text-center">{{ $row->price }}</td>
+                                    <td class="text-center">{{ $row->vehicle_type }}</td>
+                                    <td class="text-center">{{ $row->shop_name }}</td>
+                                    <td class="text-center">{{ $row->address }}</td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}</td>
-                                    <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($row->updated_at)->format('F j, Y, g:i a') }}</td>
                                     <td class="text-center py-0 align-middle">
                                         <div class="btn-group btn-group-sm">
                                             <a href="#" data-toggle="modal"
