@@ -64,6 +64,12 @@
                           <p>Service List</p>
                       </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('vehicleList.index') }}" class="nav-link {{ Route::current()->getName() == "vehicleList.index" ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Vehicle List</p>
+                    </a>
+                </li>
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

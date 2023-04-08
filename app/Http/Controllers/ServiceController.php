@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\ServiceList;
+use App\Models\VehicleList;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -15,7 +18,33 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+    // +"id": 1
+    // +"shop_id": 1
+    // +"service_list_id": 1
+    // +"vehicle_lists_id": 1
+    // +"service": "Wash"
+    // +"price": 1000
+    // +"created_at": "2023-04-08 11:45:17"
+    // +"updated_at": "2023-04-08 11:45:17"
+    // +"shop_name": "shopName"
+    // +"user_role_id": 2
+    // +"users_id": 4
+    // +"status": 1
+    // +"logo": "default.png"
+    // +"address": "dagups"
+    // +"vehicle_type": "2 Wheeler"
+        $vehicleLists = VehicleList::all();
+        $serviceLists = ServiceList::all();
+        $userId = auth()->id();
+        $services = DB::table('services')
+                        ->join('shops', 'services.shop_id', '=', 'shops.id')
+                        ->join('service_lists', 'services.service_list_id', '=', 'service_lists.id')
+                        ->join('vehicle_lists', 'services.vehicle_lists_id', '=', 'vehicle_lists.id')
+                        ->select('services.*', 'shops.*', 'service_lists.*', 'vehicle_lists.*')
+                        ->where('shops.users_id', '=', $userId)
+                        ->get();
+        // dd( $services->toArray());
+        return view('admin.services.index', compact('services','vehicleLists', 'serviceLists'));
     }
 
     /**
@@ -36,7 +65,18 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $service = Service::create($request->all());
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('shops.id')
+                        ->where('users.id', '=', $userId)
+                        ->get();
+        //  dd($usersAndShops[0]->id);               
+        $data = $request->all();
+        $data['shop_id'] = $usersAndShops[0]->id; // Set the default value for vehicle_type
+        $service = Service::create($data);
+        // dd($request->toArray());
+        // $service = Service::create($request->all());
         return redirect()->back()->with('message', 'Service Created Successfully.');
     }
 

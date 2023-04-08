@@ -31,8 +31,19 @@ return new class extends Migration
             $table->unsignedBigInteger('shop_id');
             $table->foreign('shop_id')
                     ->references('id')->on('shops')
-                    ->onDelete('cascade');  
-            $table->string('service');  
+                    ->onDelete('cascade');
+            $table->unsignedBigInteger('service_list_id');
+            $table->foreign('service_list_id')
+                          ->references('id')
+                          ->on('service_lists')
+                          ->onDelete('cascade');                       
+            $table->unsignedBigInteger('vehicle_lists_id');
+            $table->foreign('vehicle_lists_id')
+                          ->references('id')
+                          ->on('vehicle_lists')
+                          ->onDelete('cascade');
+            $table->string('service');
+            $table->unsignedBigInteger('price');  
             $table->timestamps();
         });
     }

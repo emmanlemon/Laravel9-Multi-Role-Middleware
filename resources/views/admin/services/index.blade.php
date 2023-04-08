@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@include('partials.superadmin.left-sidebar')
+@include('partials.admin.left-sidebar')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -316,8 +316,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Service</h3>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool py-3" data-toggle="modal"
-                        data-target="#createModal">
+                        <button type="button" class="btn btn-tool py-3" data-toggle="modal" data-target="#createModal">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -328,28 +327,34 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Service</th>
-                                <th class="text-center">Date Created</th>
-                                <th class="text-center">Date Updated</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Vehicle Type</th>
+                                <th class="text-center">Shop Name</th>
+                                <th class="text-center">Location</th>
+                                <th class="text-center">Created Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($serviceLists as $row)
+                            @foreach ($services as $row)
                                 <tr>
 
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $row->service }}</td>
+                                    <td class="text-center">{{ $row->price }}</td>
+                                    <td class="text-center">{{ $row->vehicle_type }}</td>
+                                    <td class="text-center">{{ $row->shop_name }}</td>
+                                    <td class="text-center">{{ $row->address }}</td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}</td>
-                                    <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($row->updated_at)->format('F j, Y, g:i a') }}</td>
                                     <td class="text-center py-0 align-middle">
                                         <div class="btn-group btn-group-sm">
                                             <a href="#" data-toggle="modal"
                                                 data-target="#editModal{{ $row->id }}" class="btn btn-info"><i
                                                     class="fa fa-pencil-alt"></i></a>
                                             <a href="#" data-toggle="modal"
-                                            data-target="#deleteModal{{ $row->id }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                data-target="#deleteModal{{ $row->id }}" class="btn btn-danger"><i
+                                                    class="fas fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -393,7 +398,8 @@
                                                                     <div class="form-group">
                                                                         <label>Service</label>
                                                                         <input id="service" type="text" name="service"
-                                                                            class="form-control" value="{{ $row->service }}"
+                                                                            class="form-control"
+                                                                            value="{{ $row->service }}"
                                                                             style="width: 100%;" required>
                                                                     </div>
                                                                     <!-- /.form-group -->
@@ -461,7 +467,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- /.card-header -->
-                                                    <form method="POST" action="{{ route('serviceList.store') }}">
+                                                    <form method="POST" action="{{ route('services.store') }}">
                                                         @csrf
                                                         {{-- @if (session('message'))
                                                                     <div class="alert alert-success">
@@ -472,11 +478,51 @@
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label>Service</label>
+                                                                        <label>Service Name</label>
                                                                         <input id="service" type="text"
                                                                             name="service" class="form-control"
                                                                             value="{{ old('service') }}"
                                                                             style="width: 100%;" required>
+                                                                    </div>
+                                                                    <!-- /.form-group -->
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Price</label>
+                                                                        <input id="price" type="text"
+                                                                            name="price" class="form-control"
+                                                                            value="{{ old('price') }}"
+                                                                            style="width: 100%;" required>
+                                                                    </div>
+                                                                    <!-- /.form-group -->
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Service Lists</label>
+                                                                        <select id="service_list_id" name="service_list_id"
+                                                                            class="form-control select2 select2-danger"
+                                                                            data-dropdown-css-class="select2-danger"
+                                                                            style="width: 100%;">
+                                                                            @foreach ($serviceLists as $value)
+                                                                                <option value="{{ $value->id }}">
+                                                                                    {{ $value->service }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- /.form-group -->
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Vehicle Lists</label>
+                                                                        <select id="vehicle_lists_id" name="vehicle_lists_id"
+                                                                            class="form-control select2 select2-danger"
+                                                                            data-dropdown-css-class="select2-danger"
+                                                                            style="width: 100%;">
+                                                                            @foreach ($vehicleLists as $value)
+                                                                                <option value="{{ $value->id }}">
+                                                                                    {{ $value->vehicle_type }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                     <!-- /.form-group -->
                                                                 </div>
