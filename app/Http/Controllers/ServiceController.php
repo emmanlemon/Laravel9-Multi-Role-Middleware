@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\ServiceList;
+use App\Models\VehicleList;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
@@ -31,6 +33,8 @@ class ServiceController extends Controller
     // +"logo": "default.png"
     // +"address": "dagups"
     // +"vehicle_type": "2 Wheeler"
+        $vehicleLists = VehicleList::all();
+        $serviceLists = ServiceList::all();
         $userId = auth()->id();
         $services = DB::table('services')
                         ->join('shops', 'services.shop_id', '=', 'shops.id')
@@ -40,7 +44,7 @@ class ServiceController extends Controller
                         ->where('shops.users_id', '=', $userId)
                         ->get();
         // dd( $services->toArray());
-        return view('admin.services.index', compact('services'));
+        return view('admin.services.index', compact('services','vehicleLists', 'serviceLists'));
     }
 
     /**
