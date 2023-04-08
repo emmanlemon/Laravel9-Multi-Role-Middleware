@@ -49,7 +49,7 @@
                             @foreach ($vehicleLists as $row)
                                 <tr>
 
-                                    <td class="text-center">{{ $row->id }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $row->vehicle_type }}</td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}</td>

@@ -65,7 +65,18 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $service = Service::create($request->all());
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('shops.id')
+                        ->where('users.id', '=', $userId)
+                        ->get();
+        //  dd($usersAndShops[0]->id);               
+        $data = $request->all();
+        $data['shop_id'] = $usersAndShops[0]->id; // Set the default value for vehicle_type
+        $service = Service::create($data);
+        // dd($request->toArray());
+        // $service = Service::create($request->all());
         return redirect()->back()->with('message', 'Service Created Successfully.');
     }
 

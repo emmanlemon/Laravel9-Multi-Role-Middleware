@@ -339,7 +339,7 @@
                             @foreach ($services as $row)
                                 <tr>
 
-                                    <td class="text-center">{{ $row->id }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $row->service }}</td>
                                     <td class="text-center">{{ $row->price }}</td>
                                     <td class="text-center">{{ $row->vehicle_type }}</td>
@@ -467,7 +467,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- /.card-header -->
-                                                    <form method="POST" action="{{ route('serviceList.store') }}">
+                                                    <form method="POST" action="{{ route('services.store') }}">
                                                         @csrf
                                                         {{-- @if (session('message'))
                                                                     <div class="alert alert-success">
@@ -499,7 +499,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Service Lists</label>
-                                                                        <select id="status" name="status"
+                                                                        <select id="service_list_id" name="service_list_id"
                                                                             class="form-control select2 select2-danger"
                                                                             data-dropdown-css-class="select2-danger"
                                                                             style="width: 100%;">
@@ -514,7 +514,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Vehicle Lists</label>
-                                                                        <select id="status" name="status"
+                                                                        <select id="vehicle_lists_id" name="vehicle_lists_id"
                                                                             class="form-control select2 select2-danger"
                                                                             data-dropdown-css-class="select2-danger"
                                                                             style="width: 100%;">
