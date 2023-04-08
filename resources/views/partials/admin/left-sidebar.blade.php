@@ -56,11 +56,12 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="./index3.html" class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Dashboard v3</p>
-                      </a>
-                  </li>
+                    <a href="{{ route('services.index') }}" class="nav-link {{ Route::current()->getName() == "services.index" ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        {{-- {{ Route::current()->getName() }} --}}
+                        <p>Services</p>
+                    </a>
+                </li>
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

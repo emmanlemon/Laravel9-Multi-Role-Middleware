@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@include('partials.superadmin.left-sidebar')
+@include('partials.admin.left-sidebar')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
