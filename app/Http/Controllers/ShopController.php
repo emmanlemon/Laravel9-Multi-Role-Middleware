@@ -17,13 +17,10 @@ class ShopController extends Controller
      */
     public function index()
     {
-        // $shops = Shops::all();
-        // return view('superadmin.shop', compact('shops'));
         $usersAndShops = DB::table('users')
                         ->join('shops', 'users.id', '=', 'shops.users_id')
                         ->select('users.*', 'shops.*')
                         ->get();
-        // $shops = Shops::with('user')->get();
         return view('superadmin.shop.index', compact('usersAndShops'));
     }
 
@@ -79,8 +76,8 @@ class ShopController extends Controller
         ->select('users.*', 'shops.*')
         ->where('shops.id', '=', $id)
         ->get();
-        return view('superadmin.shop.edit', compact('usersAndShops', 'id'));
 
+        return view('superadmin.shop.edit', compact('usersAndShops', 'id'));
     }
 
     /**
@@ -96,6 +93,7 @@ class ShopController extends Controller
         $shops->update([
             'shop_name' => $request->input('shop_name'),
             'status' => $request->input('status'),
+            'address' => $request->input('address'),
         ]);
     
         $user = User::findOrFail($request->users_id);
@@ -107,7 +105,6 @@ class ShopController extends Controller
     
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
-    
 
     /**
      * Remove the specified resource from storage.
@@ -117,8 +114,6 @@ class ShopController extends Controller
      */
     public function destroy(Shops $shops, User $user, $id)
     {
-        // $user = User::findOrFail($request->users_id);
-
         $usersAndShops = DB::table('users')
         ->join('shops', 'users.id', '=', 'shops.users_id')
         ->select('users_id')
@@ -127,9 +122,75 @@ class ShopController extends Controller
         $user = User::find($usersAndShops[0]->users_id);
         $user->delete();
 
-        // $shops = Shops::find($id);
-        // // dd($shops);
-        // $shops->delete();
         return redirect()->back()->with('message', 'Shops Deleted Successfully.');
+    }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////// FUNCTION FOR ADMIN///////////////////////////////////////////////////////////////////////////////////// ///////////////////////// 
+
+    public function myShop()
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('users.id', '=', $userId)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('admin.shop.index', compact('usersAndShops'));
+    }
+
+    public function myShopUpdate(Request $request, Shops $shops, User $user, $id)
+    {
+        $shops = Shops::findOrFail($id);
+        $shops->update([
+            'shop_name' => $request->input('shop_name'),
+            'address' => $request->input('address'),
+        ]);
+    
+        $user = User::findOrFail($request->users_id);
+        $user->update([
+            'email' => $request->input('email'),
+            'name' => $request->input('name'),
+        ]);
+    
+        return redirect()->back()->with('message', 'Shops Updated successfully.');
+    }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////// FUNCTION FOR USER///////////////////////////////////////////////////////////////////////////////////// ///////////////////////// 
+
+    public function userShop()
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('shops.status', '=', 1)
+                        ->where('users.active', '=', 1)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('user.shop.index', compact('usersAndShops'));
+    }
+
+    public function userShopView($id)
+    {
+        // $user = auth()->user();
+        $userId = auth()->id();
+        $usersAndShops = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('users.*', 'shops.*')
+                        ->where('shops.status', '=', 1)
+                        ->where('users.active', '=', 1)
+                        ->where('shops.id', '=', $id)
+                        ->get();
+        
+        // dd($usersAndShops);
+        return view('user.shop.view', compact('usersAndShops'));
     }
 }

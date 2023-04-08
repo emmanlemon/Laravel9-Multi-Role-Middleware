@@ -173,6 +173,22 @@
                                     @enderror
                                 </div>
                                 <div class="input-group mb-3">
+                                    <input id="address" type="text"
+                                        class="form-control @error('address') is-invalid @enderror" name="address"
+                                        value="{{ old('address') }}" placeholder="Shop Address" required
+                                        autocomplete="address" autofocus>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fa fa-map-marker"></span>
+                                        </div>
+                                    </div>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="input-group mb-3">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         placeholder="Password" required autocomplete="current-password">

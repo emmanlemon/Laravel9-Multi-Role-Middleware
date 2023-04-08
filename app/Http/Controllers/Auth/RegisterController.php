@@ -48,6 +48,7 @@ class RegisterController extends Controller
         $shop = $user->shops()->create([
             'shop_name' => $data['shop_name'],
             'user_role_id' => $data['role'],
+            'address' => $data['address'],
             'users_id' => $user->id,
         ]);
 

@@ -45,6 +45,8 @@ Auth::routes();
 Route::middleware(['auth','user-role:user'])->group(function()
 {
     Route::get("/home",[HomeController::class,'userHome'])->name('home');
+    Route::get("/shops" , [ShopController::class,'userShop'])->name('shops.userShop');
+    Route::get("/shops/{shop}" , [ShopController::class,'userShopView'])->name('shops.userShopView');
 });
 
 // superadmin Route
@@ -52,13 +54,14 @@ Route::middleware(['auth','user-role:superadmin'])->group(function()
 {
     Route::get("/superadmin/home",[HomeController::class,'superadminHome'])->name('home.superadmin');
     Route::resource('/superadmin/shops', ShopController::class);
-    // Route::resource("/superadmin/serviceList" , ServiceListController::class);
+    Route::resource("/superadmin/serviceList" , ServiceListController::class);
 });
 
 // Admin Route
 Route::middleware(['auth','user-role:admin'])->group(function()
 {
     Route::get("/admin/home",[HomeController::class,'adminHome'])->name('home.admin');
-    // Route::resource("/shops" , ShopController::class);
+    Route::get("/admin/shops" , [ShopController::class,'myShop'])->name('shops.myShop');
+    Route::put("/admin/shops/{shop}" , [ShopController::class,'myShopUpdate'])->name('shops.myShopUpdate');
     // Route::resource("/service" , ServiceController::class);
 });

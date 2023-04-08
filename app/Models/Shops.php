@@ -15,6 +15,7 @@ class Shops extends Model
         'shop_name',
         'user_role_id',
         'users_id',
+        'address',
     ];
 
     public function user()

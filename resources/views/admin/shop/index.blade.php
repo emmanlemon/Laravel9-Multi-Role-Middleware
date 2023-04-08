@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@include('partials.superadmin.left-sidebar')
+@include('partials.admin.left-sidebar')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -22,7 +22,7 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <section class="content">
+        {{-- <section class="content">
             <div class="container-fluid">
 
                 <!-- Main row -->
@@ -38,7 +38,7 @@
                                         <th class="text-center">Shop Name</th>
                                         <th class="text-center">Owner</th>
                                         <th class="text-center">Active</th>
-                                        <th class="text-center">Location</th>
+                                        <th class="text-center">Date Created</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -51,23 +51,16 @@
                                             <td class="text-center"><span
                                                     class="{{ $row->status == 1 ? 'badge badge-success' : 'badge badge-danger' }}">{{ $row->status == 1 ? 'Active' : 'Not Active' }}</span>
                                             </td>
-                                            <td class="text-center">{{ $row->address }}</td>
+                                            <td class="text-center">{{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}</td>
                                             <td class="text-center">
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#viewModal{{ $row->id }}"
                                                     class="btn btn-primary btn-sm"><i class="fas fa-folder">
                                                     </i>View</a>
-                                                {{-- <a href="{{ route('shops.show', $row->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-folder">
-                                                    </i>View</a> --}}
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#editModal{{ $row->id }}"
                                                     class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt">
                                                     </i>Edit</a>
-                                                {{-- <a href="{{ route('shops.edit', $row->id) }}" class="btn btn-info btn-sm"><i
-                                                        class="fas fa-pencil-alt">
-                                                    </i>Edit</a> --}}
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#deleteModal{{ $row->id }}"
                                                     class="btn btn-danger btn-sm"><i class="fas fa-trash">
@@ -88,19 +81,6 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        {{-- {"id":3,
-                                                        "active":0,
-                                                        "name":"testOwnerName",
-                                                        "email":"test@email.com",
-                                                        "email_verified_at":null,
-                                                        "role":2,
-                                                        "created_at":"2023-04-06 14:58:21",
-                                                        "updated_at":"2023-04-06 15:18:46",
-                                                        "shop_name":"testShopName",
-                                                        "user_role_id":2,
-                                                        "users_id":6,
-                                                        "status":0,
-                                                        "logo":"default.png"} --}}
                                                         <div class="card card-default">
                                                           <div class="card-header">
                                                               <h3 class="card-title">List of Shops</h3>
@@ -134,13 +114,6 @@
                                                                           value="{{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y, g:i a') }}"
                                                                           style="width: 100%;" disabled>
                                                                   </div>
-                                                                  <div class="form-group">
-                                                                    <label>Location</label>
-                                                                    <input id="address" type="text"
-                                                                        name="address" class="form-control"
-                                                                        value="{{ $row->address }}"
-                                                                        style="width: 100%;" disabled>
-                                                                </div>
                                                                     <!-- /.form-group -->
                                                                 </div>
                                                                 <!-- /.col -->
@@ -162,31 +135,13 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                       <label>Date Updated</label>
-                                                                      <input id="updated_at" type="text"
-                                                                          name="updated_at" class="form-control"
+                                                                      <input id="name" type="text"
+                                                                          name="status" class="form-control"
                                                                           value="{{ \Carbon\Carbon::parse($row->updated_at)->format('F j, Y, g:i a') }}"
                                                                           style="width: 100%;" disabled>
                                                                   </div>
                                                                     <!-- /.form-group -->
                                                                 </div>
-                                                                {{-- <div class="col-md-6">
-                                                                  <div class="form-group">
-                                                                      <label>Date Created</label>
-                                                                      <input id="name" type="text"
-                                                                          name="name" class="form-control"
-                                                                          value="{{ $row->created_at }}"
-                                                                          style="width: 100%;" disabled>
-                                                                  </div>
-                                                                  <!-- /.form-group -->
-                                                                  <div class="form-group">
-                                                                      <label>Date Updated</label>
-                                                                      <input id="name" type="text"
-                                                                          name="status" class="form-control"
-                                                                          value="{{ $row->updated_at }}"
-                                                                          style="width: 100%;" disabled>
-                                                                  </div>
-                                                                  <!-- /.form-group -->
-                                                              </div> --}}
                                                                 <!-- /.col -->
                                                             </div>
                                                             <!-- /.row -->
@@ -222,11 +177,11 @@
                                                                 action="{{ route('shops.update', $row->id) }}">
                                                                 @csrf
                                                                 @method('PUT')
-                                                                {{-- @if (session('message'))
+                                                                @if (session('message'))
                                                                     <div class="alert alert-success">
                                                                         {{ session('message') }}
                                                                     </div>
-                                                                @endif --}}
+                                                                @endif
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <input id="users_id" type="text" name="users_id"
@@ -247,13 +202,6 @@
                                                                                 <input id="email" type="text"
                                                                                     name="email" class="form-control"
                                                                                     value="{{ $row->email }}"
-                                                                                    style="width: 100%;" required>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Location</label>
-                                                                                <input id="address" type="text"
-                                                                                    name="address" class="form-control"
-                                                                                    value="{{ $row->address }}"
                                                                                     style="width: 100%;" required>
                                                                             </div>
                                                                             <!-- /.form-group -->
@@ -340,6 +288,160 @@
                     </div>
                 </div>
                 <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
+        </section> --}}
+        <!-- /.content -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        @foreach ($usersAndShops as $userAndShop)
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}"
+                                        alt="User profile picture">
+                                </div>
+
+                                <h3 class="profile-username text-center">{{ $userAndShop->shop_name }}</h3>
+
+                                <p class="text-muted text-center">My Shop</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Followers</b> <a class="float-right">1,322</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Following</b> <a class="float-right">543</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Friends</b> <a class="float-right">13,287</a>
+                                    </li>
+                                </ul>
+
+                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-9">
+                        <!-- Main row -->
+                        <div class="row">
+                            <div class="card card-default">
+                                <div class="card-header">
+                                    <h3 class="card-title">List of Shops</h3>
+
+                                    <div class="card-tools">
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                
+                                    <form method="POST"
+                                        action="{{ route('shops.myShopUpdate', $userAndShop->id) }}">
+                                        @csrf
+                                        @method('PUT')
+
+                                        @if (session('message'))
+                                            <div class="alert alert-success">
+                                                {{ session('message') }}
+                                            </div>
+                                        @endif
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <input id="users_id" type="text" name="users_id"
+                                                    class="form-control d-none"
+                                                    value="{{ $userAndShop->users_id }}"
+                                                    style="width: 100%;" required>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Shop Name</label>
+                                                        <input id="shop_name" type="text"
+                                                            name="shop_name" class="form-control"
+                                                            value="{{ $userAndShop->shop_name }}"
+                                                            style="width: 100%;" required>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input id="email" type="text"
+                                                            name="email" class="form-control"
+                                                            value="{{ $userAndShop->email }}"
+                                                            style="width: 100%;" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Date Created</label>
+                                                        <input id="name" type="text"
+                                                            name="status" class="form-control"
+                                                            value="{{ \Carbon\Carbon::parse($userAndShop->created_at)->format('F j, Y, g:i a') }}"
+                                                            style="width: 100%;" disabled>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Owner Name</label>
+                                                        <input id="name" type="text"
+                                                            name="name" class="form-control"
+                                                            value="{{ $userAndShop->name }}"
+                                                            style="width: 100%;" required>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                    <div class="form-group">
+                                                        <label>Status</label>
+                                                        <select id="status" name="status"
+                                                            class="form-control select2 select2-danger"
+                                                            data-dropdown-css-class="select2-danger"
+                                                            style="width: 100%;" disabled>
+                                                            <option value="{{ $userAndShop->status }}"
+                                                                selected="selected">
+                                                                {{ $userAndShop->status == 1 ? 'Active' : 'Not Active' }}
+                                                            </option>
+                                                            <option value="1">Active</option>
+                                                            <option value="0">Not Active
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    {{-- <div class="form-group">
+                                                        <label>Date Updated</label>
+                                                        <input id="name" type="text"
+                                                            name="status" class="form-control"
+                                                            value="{{ \Carbon\Carbon::parse($userAndShop->updated_at)->format('F j, Y, g:i a') }}"
+                                                            style="width: 100%;" disabled>
+                                                    </div> --}}
+                                                    <div class="form-group">
+                                                        <label>Location</label>
+                                                        <input id="address" type="text"
+                                                            name="address" class="form-control"
+                                                            value="{{ $userAndShop->address }}"
+                                                            style="width: 100%;" required>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                @endforeach
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.row (main row) -->
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
