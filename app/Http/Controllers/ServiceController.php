@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -15,7 +16,14 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = DB::table('services')
+                        ->join('shops', 'services.shop_id', '=', 'shops.id')
+                        ->join('service_lists', 'services.service_list_id', '=', 'service_lists.id')
+                        ->join('vehicle_lists', 'services.vehicle_lists_id', '=', 'vehicle_lists.id')
+                        ->select('services.*', 'shops.*', 'service_lists.*', 'vehicle_lists.*')
+                        ->get();
+        // dd( $services->toArray());
+        return view('admin.services.index', compact('services'));
     }
 
     /**
