@@ -12,4 +12,9 @@ class ServiceList extends Model
     protected $fillable = [
         'service'
     ];
+
+    public function service()
+    {
+        return $this->hasMany(Service::class, 'service_lists_id');
+    }
 }

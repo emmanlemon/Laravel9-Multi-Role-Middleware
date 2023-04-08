@@ -13,4 +13,9 @@ class VehicleList extends Model
         'vehicle_type',
         'status',
     ];
+
+    public function service()
+    {
+        return $this->hasMany(Service::class, 'vehicle_lists_id');
+    }
 }
