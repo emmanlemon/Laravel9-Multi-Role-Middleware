@@ -21,6 +21,9 @@ class ServiceListSeeder extends Seeder
                 ['service'=>'Change Oil'],
                 ['service'=>'Tire air cleaner'],
                 ['service'=>'Repair'],
+                ['service'=>'Tire Black'],
+                ['service'=>'Vacuum'],
+                ['service'=>'Wax'],
         ];
         foreach($serviceLists as $serviceList)
         {

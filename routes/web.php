@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ServiceListController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\VehicleListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Route::middleware(['auth','user-role:superadmin'])->group(function()
     Route::get("/superadmin/home",[HomeController::class,'superadminHome'])->name('home.superadmin');
     Route::resource('/superadmin/shops', ShopController::class);
     Route::resource("/superadmin/serviceList" , ServiceListController::class);
+    Route::resource("/superadmin/vehicleList" , VehicleListController::class);
 });
 
 // Admin Route
