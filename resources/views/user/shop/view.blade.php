@@ -46,7 +46,7 @@
 
 
 
-                    <form id="service_form" method="POST" action="">
+                    <form id="service_form" method="POST" action="{{ route('processServices') }}">
                         @csrf
                         
                         <div class="form-group">
@@ -129,23 +129,23 @@
                                 $('#total_price').val(total.toFixed(2));
                             });
                             
-                            $('#service_form').submit(function(e) {
-                                e.preventDefault();
+                            // $('#service_form').submit(function(e) {
+                            //     e.preventDefault();
                                 
-                                var form = $(this);
+                            //     var form = $(this);
                                 
-                                $.ajax({
-                                    url: form.attr('action'),
-                                    type: form.attr('method'),
-                                    data: form.serialize(),
-                                    success: function(response) {
-                                        // handle success response
-                                    },
-                                    error: function(xhr, status, error) {
-                                        // handle error response
-                                    }
-                                });
-                            });
+                            //     $.ajax({
+                            //         url: form.attr('action'),
+                            //         type: form.attr('method'),
+                            //         data: form.serialize(),
+                            //         success: function(response) {
+                            //             // handle success response
+                            //         },
+                            //         error: function(xhr, status, error) {
+                            //             // handle error response
+                            //         }
+                            //     });
+                            // });
                         });
                     </script>
 

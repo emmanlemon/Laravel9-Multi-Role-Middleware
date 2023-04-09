@@ -148,15 +148,33 @@ class ServiceController extends Controller
     }
 
     public function getServices(Request $request)
-{
+    {
 
-    // $vehicle_id = $request->input('vehicle_id');
-    // $services = Service::where('vehicle_id', $vehicle_id)->pluck('name', 'id');
+        // $vehicle_id = $request->input('vehicle_id');
+        // $services = Service::where('vehicle_id', $vehicle_id)->pluck('name', 'id');
 
-    $vehicle_lists_id = $request->input('vehicle_lists_id');
-    $serviceLists = Service::where('vehicle_lists_id', $vehicle_lists_id)->get();
-    // $serviceLists = ServiceList::all();
+        $vehicle_lists_id = $request->input('vehicle_lists_id');
+        $serviceLists = Service::where('vehicle_lists_id', $vehicle_lists_id)->get();
+        // $serviceLists = ServiceList::all();
 
-    return response()->json($serviceLists);
-}
+        return response()->json($serviceLists);
+    }
+
+    public function processServices(Request $request)
+    {
+        dd($request->toArray());
+        // $userId = auth()->id();
+        // $usersAndShops = DB::table('users')
+        //                 ->join('shops', 'users.id', '=', 'shops.users_id')
+        //                 ->select('shops.id')
+        //                 ->where('users.id', '=', $userId)
+        //                 ->get();
+        //  dd($usersAndShops[0]->id);               
+        // $data = $request->all();
+        // $data['shop_id'] = $usersAndShops[0]->id; // Set the default value for vehicle_type
+        // $service = Service::create($data);
+        // dd($request->toArray());
+        // $service = Service::create($request->all());
+        return redirect()->back()->with('message', 'Service Created Successfully.');
+    }
 }

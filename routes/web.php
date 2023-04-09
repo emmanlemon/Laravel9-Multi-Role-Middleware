@@ -49,6 +49,7 @@ Route::middleware(['auth','user-role:user'])->group(function()
     Route::get("/shops" , [ShopController::class,'userShop'])->name('shops.userShop');
     Route::get("/shops/{shop}" , [ShopController::class,'userShopView'])->name('shops.userShopView');
     Route::get('/getServices', [ServiceController::class, 'getServices'])->name('getServices');
+    Route::post('/processServices', [ServiceController::class, 'processServices'])->name('processServices');
 });
 
 // superadmin Route
