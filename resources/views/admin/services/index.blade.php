@@ -600,11 +600,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Are you sure you want to delete this shop?
+                                                Are you sure you want to delete this Service?
                                             </div>
                                             <div class="modal-footer">
                                                 <form method="POST"
-                                                    action="{{ route('serviceList.destroy', $row->id) }}">
+                                                    action="{{ route('services.destroy', $row->id) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Delete</button>

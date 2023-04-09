@@ -142,6 +142,7 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
+        // dd($service->toArray());
         $service->delete();
         return redirect()->back()->with('message', 'Service Deleted Successfully.');
     }
