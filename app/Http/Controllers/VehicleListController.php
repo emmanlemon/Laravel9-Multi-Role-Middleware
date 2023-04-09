@@ -74,7 +74,7 @@ class VehicleListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
         $vehicleList = VehicleList::findOrFail($id);
         $vehicleList->update([
             'vehicle_type' => $request->input('vehicle'),

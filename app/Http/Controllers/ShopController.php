@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shops;
 use App\Models\User;
+use App\Models\VehicleList;
 use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
@@ -189,8 +190,16 @@ class ShopController extends Controller
                         ->where('users.active', '=', 1)
                         ->where('shops.id', '=', $id)
                         ->get();
+        $services = DB::table('services')
+                        ->join('shops', 'services.shop_id', '=', 'shops.id')
+                        ->join('service_lists', 'services.service_list_id', '=', 'service_lists.id')
+                        ->join('vehicle_lists', 'services.vehicle_lists_id', '=', 'vehicle_lists.id')
+                        ->select('shops.*', 'service_lists.*', 'vehicle_lists.*', 'services.*')
+                        ->where('shops.id', '=', $id)
+                        ->get();
+        $vehicle_lists = VehicleList::all();
         
-        // dd($usersAndShops);
-        return view('user.shop.view', compact('usersAndShops'));
+        // dd($vehicle_lists->toArray());
+        return view('user.shop.view', compact('usersAndShops', 'vehicle_lists'));
     }
 }

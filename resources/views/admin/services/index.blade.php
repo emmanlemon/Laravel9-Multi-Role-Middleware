@@ -341,7 +341,7 @@
 
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $row->service }}</td>
-                                    <td class="text-center">{{ $row->price }}</td>
+                                    <td class="text-center">₱{{ $row->price }}</td>
                                     <td class="text-center">{{ $row->vehicle_type }}</td>
                                     <td class="text-center">{{ $row->shop_name }}</td>
                                     <td class="text-center">{{ $row->address }}</td>
@@ -380,7 +380,7 @@
                                                     </div>
                                                     <!-- /.card-header -->
                                                     <form method="POST"
-                                                        action="{{ route('serviceList.update', $row->id) }}">
+                                                        action="{{ route('services.update', $row->id) }}">
                                                         @csrf
                                                         @method('PUT')
                                                         {{-- @if (session('message'))
@@ -390,17 +390,65 @@
                                                                 @endif --}}
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <input id="serviceList_id" type="text"
-                                                                    name="serviceList_id" class="form-control d-none"
+                                                                {{-- <input id="service_id" type="text"
+                                                                    name="service_id" class="form-control d-none"
                                                                     value="{{ $row->id }}" style="width: 100%;"
-                                                                    required>
+                                                                    required> --}}
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label>Service</label>
-                                                                        <input id="service" type="text" name="service"
-                                                                            class="form-control"
+                                                                        <label>Service Name</label>
+                                                                        <input id="service" type="text"
+                                                                            name="service" class="form-control"
                                                                             value="{{ $row->service }}"
                                                                             style="width: 100%;" required>
+                                                                    </div>
+                                                                    <!-- /.form-group -->
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Price</label>
+                                                                        <input id="price" type="text"
+                                                                            name="price" class="form-control"
+                                                                            value="{{ $row->price }}"
+                                                                            style="width: 100%;" required>
+                                                                    </div>
+                                                                    <!-- /.form-group -->
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Service Lists</label>
+                                                                        <select id="service_list_id" name="service_list_id"
+                                                                            class="form-control select2 select2-danger"
+                                                                            data-dropdown-css-class="select2-danger"
+                                                                            style="width: 100%;">
+                                                                            <option value="{{ $row->service_list_id }}"
+                                                                                selected="selected">
+                                                                                {{ $row->service }}
+                                                                            </option>
+                                                                            @foreach ($serviceLists as $value)
+                                                                                <option value="{{ $value->id }}">
+                                                                                    {{ $value->service }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- /.form-group -->
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Vehicle Lists</label>
+                                                                        <select id="vehicle_lists_id" name="vehicle_lists_id"
+                                                                            class="form-control select2 select2-danger"
+                                                                            data-dropdown-css-class="select2-danger"
+                                                                            style="width: 100%;">
+                                                                            <option value="{{ $row->vehicle_lists_id }}"
+                                                                                selected="selected">
+                                                                                {{ $row->vehicle_type }}
+                                                                            </option>
+                                                                            @foreach ($vehicleLists as $value)
+                                                                                <option value="{{ $value->id }}">
+                                                                                    {{ $value->vehicle_type }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                     <!-- /.form-group -->
                                                                 </div>
@@ -552,11 +600,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Are you sure you want to delete this shop?
+                                                Are you sure you want to delete this Service?
                                             </div>
                                             <div class="modal-footer">
                                                 <form method="POST"
-                                                    action="{{ route('serviceList.destroy', $row->id) }}">
+                                                    action="{{ route('services.destroy', $row->id) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Delete</button>
