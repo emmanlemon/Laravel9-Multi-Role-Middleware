@@ -40,7 +40,7 @@ class ServiceController extends Controller
                         ->join('shops', 'services.shop_id', '=', 'shops.id')
                         ->join('service_lists', 'services.service_list_id', '=', 'service_lists.id')
                         ->join('vehicle_lists', 'services.vehicle_lists_id', '=', 'vehicle_lists.id')
-                        ->select('services.*', 'shops.*', 'service_lists.*', 'vehicle_lists.*')
+                        ->select('shops.*', 'service_lists.*', 'vehicle_lists.*', 'services.*')
                         ->where('shops.users_id', '=', $userId)
                         ->get();
         // dd( $services->toArray());
@@ -109,9 +109,28 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, $id)
     {
-        $service->update($request->all());
+        $userId = auth()->id();
+        $getShopID = DB::table('users')
+                        ->join('shops', 'users.id', '=', 'shops.users_id')
+                        ->select('shops.id')
+                        ->where('users.id', '=', $userId)
+                        ->get();
+        //  dd($getShopID[0]->id); 
+        // $data = $request->all();
+        // $data['shop_id'] = $getShopID[0]->id;
+        $service = Service::findOrFail($id);
+        // dd($request->toArray());
+        $service->update([
+            'shop_id' => $getShopID[0]->id,
+            'service_list_id' => $request->input('service_list_id'),
+            'vehicle_lists_id' => $request->input('vehicle_lists_id'),
+            'service' => $request->input('service'),
+            'price' => $request->input('price'),
+        ]);
+        // dd($service->id);
+        // $service->update($request->all());
         return redirect()->back()->with('message', 'Service Updated successfully.');
     }
 
