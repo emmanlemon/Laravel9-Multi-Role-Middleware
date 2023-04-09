@@ -146,4 +146,17 @@ class ServiceController extends Controller
         $service->delete();
         return redirect()->back()->with('message', 'Service Deleted Successfully.');
     }
+
+    public function getServices(Request $request)
+{
+
+    // $vehicle_id = $request->input('vehicle_id');
+    // $services = Service::where('vehicle_id', $vehicle_id)->pluck('name', 'id');
+
+    $vehicle_lists_id = $request->input('vehicle_lists_id');
+    $serviceLists = Service::where('vehicle_lists_id', $vehicle_lists_id)->get();
+    // $serviceLists = ServiceList::all();
+
+    return response()->json($serviceLists);
+}
 }

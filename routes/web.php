@@ -48,6 +48,7 @@ Route::middleware(['auth','user-role:user'])->group(function()
     Route::get("/home",[HomeController::class,'userHome'])->name('home');
     Route::get("/shops" , [ShopController::class,'userShop'])->name('shops.userShop');
     Route::get("/shops/{shop}" , [ShopController::class,'userShopView'])->name('shops.userShopView');
+    Route::get('/getServices', [ServiceController::class, 'getServices'])->name('getServices');
 });
 
 // superadmin Route
