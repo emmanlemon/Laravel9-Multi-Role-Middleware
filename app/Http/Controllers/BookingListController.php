@@ -35,7 +35,7 @@ class BookingListController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->toArray());
+        // dd($request->toArray());
         // $userId = auth()->id();
         // $usersAndShops = DB::table('users')
         //                 ->join('shops', 'users.id', '=', 'shops.users_id')
@@ -48,7 +48,24 @@ class BookingListController extends Controller
         // $service = Service::create($data);
         // dd($request->toArray());
         // $service = Service::create($request->all());
-        return redirect()->back()->with('message', 'Service Created Successfully.');
+
+        // $example = new ExampleModel();
+        // $example->name = $request->input('name');
+        // $example->description = $request->input('description');
+        // $example->save();
+
+        $booking_lists = new BookingList();
+        $booking_lists->shop_id = $request->input('shop_id');
+        $booking_lists->vehicle_lists_id = $request->input('vehicle_list');
+        $booking_lists->client_name = $request->input('name');
+        $booking_lists->email = $request->input('email');
+        $booking_lists->address = $request->input('address');
+        $booking_lists->schedule_date = $request->input('date');
+        $booking_lists->total_amount = $request->input('total_price');
+        $booking_lists->save();
+
+
+        return redirect()->back()->with('message', 'Booked Successfully.');
     }
 
     /**

@@ -32,7 +32,7 @@ return new class extends Migration
                             ->onDelete('cascade');
             $table->string('service_name');
             $table->string('service_amount');
-            $table->string('status');
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }

@@ -37,19 +37,28 @@
                             <br>
                             {{$vehicle_lists}}
                         </div> --}}
+                        @if (session('message'))
+                            <div class="alert alert-success">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                         <form id="service_form" method="POST" action="{{ route('bookingList.store') }}">
                             @csrf
 
                             <div class="col-md-12  mt-4">
+                                @foreach ($usersAndShops as $userAndShop)
+                                    <input id="shop_id" type="text" name="shop_id" class="form-control d-none"
+                                        value="{{ $userAndShop->id }}" style="width: 100%;" required readonly>
+                                @endforeach
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input id="name" type="text" name="name" class="form-control" value="{{ $user->name }}"
-                                        style="width: 100%;" required readonly>
+                                    <input id="name" type="text" name="name" class="form-control"
+                                        value="{{ $user->name }}" style="width: 100%;" required readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input id="email" type="email" name="email" class="form-control" value="{{ $user->email }}"
-                                        style="width: 100%;" required readonly>
+                                    <input id="email" type="email" name="email" class="form-control"
+                                        value="{{ $user->email }}" style="width: 100%;" required readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Address</label>

@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('schedule_date'); 
             $table->string('total_amount'); 
-            $table->string('status'); 
+            $table->string('status')->default(1); 
             $table->timestamps();
         });
     }
