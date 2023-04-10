@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingList;
+use App\Models\BookedServce;
 use Illuminate\Http\Request;
 
 class BookingListController extends Controller
@@ -35,7 +36,7 @@ class BookingListController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->toArray());
+        dd($request->toArray());
         // $userId = auth()->id();
         // $usersAndShops = DB::table('users')
         //                 ->join('shops', 'users.id', '=', 'shops.users_id')
@@ -63,6 +64,8 @@ class BookingListController extends Controller
         $booking_lists->schedule_date = $request->input('date');
         $booking_lists->total_amount = $request->input('total_price');
         $booking_lists->save();
+
+        $booked_service = new BookedServce();
 
 
         return redirect()->back()->with('message', 'Booked Successfully.');

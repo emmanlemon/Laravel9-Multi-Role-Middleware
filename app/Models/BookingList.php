@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BookedServce;
 
 class BookingList extends Model
 {
@@ -19,4 +20,9 @@ class BookingList extends Model
         'total_amount',
         'status',
     ];
+
+    public function booked_servce()
+    {
+        return $this->hasMany(BookedServce::class, 'booking_lists_id');
+    }
 }

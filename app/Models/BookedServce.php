@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BookingList;
 
 class BookedServce extends Model
 {
@@ -17,4 +18,9 @@ class BookedServce extends Model
         'service_amount',
         'status',
     ];
+
+    public function booking_list()
+    {
+        return $this->belongsTo(BookingList::class);
+    }
 }
