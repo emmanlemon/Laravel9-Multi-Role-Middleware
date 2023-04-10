@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookingList extends Model
+class BookedServce extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'shop_id',
+        'booking_lists_id',
+        'services_id',
         'vehicle_lists_id',
-        'client_name',
-        'email',
-        'address',
-        'schedule_date',
-        'total_amount',
+        'service_name',
+        'service_amount',
         'status',
     ];
 }

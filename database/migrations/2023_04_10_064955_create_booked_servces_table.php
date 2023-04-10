@@ -13,24 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('booking_lists', function (Blueprint $table) {
+        Schema::create('booked_servces', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shop_id');
-            $table->foreign('shop_id')
+            $table->unsignedBigInteger('booking_lists_id');
+            $table->foreign('booking_lists_id')
                     ->references('id')
-                    ->on('shops')
+                    ->on('booking_lists')
+                    ->onDelete('cascade');
+            $table->unsignedBigInteger('services_id');
+            $table->foreign('services_id')
+                    ->references('id')
+                    ->on('services')
                     ->onDelete('cascade');
             $table->unsignedBigInteger('vehicle_lists_id');
             $table->foreign('vehicle_lists_id')
                             ->references('id')
                             ->on('vehicle_lists')
-                            ->onDelete('cascade');   
-            $table->string('client_name');
-            $table->string('email');  
-            $table->string('address');
-            $table->string('schedule_date'); 
-            $table->string('total_amount'); 
-            $table->string('status'); 
+                            ->onDelete('cascade');
+            $table->string('service_name');
+            $table->string('service_amount');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -42,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_lists');
+        Schema::dropIfExists('booked_servces');
     }
 };

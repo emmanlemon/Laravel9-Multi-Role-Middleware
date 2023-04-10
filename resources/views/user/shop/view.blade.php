@@ -43,13 +43,13 @@
                             <div class="col-md-12  mt-4">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input id="name" type="text" name="name" class="form-control" value=""
-                                        style="width: 100%;" required>
+                                    <input id="name" type="text" name="name" class="form-control" value="{{ $user->name }}"
+                                        style="width: 100%;" required readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input id="email" type="email" name="email" class="form-control" value=""
-                                        style="width: 100%;" required>
+                                    <input id="email" type="email" name="email" class="form-control" value="{{ $user->email }}"
+                                        style="width: 100%;" required readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Address</label>
