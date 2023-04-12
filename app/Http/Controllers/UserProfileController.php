@@ -16,7 +16,7 @@ class UserProfileController extends Controller
         ->where('users.id', '=', auth()->id())
         ->first();
 
-        if(auth()->user()->role === 'super'){
+        if(auth()->user()->role === 'superadmin'){
             return view('superadmin.profile.changeProfile', compact('user'));
         }elseif(auth()->user()->role === 'admin'){
             return view('admin.profile.changeProfile', compact('user'));

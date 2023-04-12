@@ -94,12 +94,12 @@ class ShopController extends Controller
     public function update(Request $request, Shops $shops, User $user, $id)
     {
         $shops = Shops::findOrFail($id);
-        $shops->update([
+        $updated = $shops->update([
             'shop_name' => $request->input('shop_name'),
             'status' => $request->input('status'),
             'address' => $request->input('address'),
         ]);
-    
+     
         $user = User::findOrFail($request->users_id);
         $user->update([
             'email' => $request->input('email'),
@@ -107,8 +107,10 @@ class ShopController extends Controller
             'active' => $request->input('status'),
         ]);
 
-        Notification::route('mail', $request->input('email'))
-        ->notify(new ShopApproved($request->input('status')));
+        if($updated == true){
+            Notification::route('mail', $request->input('email'))
+            ->notify(new ShopApproved($request->input('status')));
+        }
 
         return redirect()->back()->with('message', 'Shops Updated successfully.');
     }
