@@ -50,7 +50,7 @@ class LoginController extends Controller
         {
             if(auth()->user()->role == 'admin')
             {
-                return redirect()->route('home.admin');
+                    return redirect()->route('home.admin');
             }
             else if(auth()->user()->role == 'superadmin')
             {
@@ -60,6 +60,10 @@ class LoginController extends Controller
             {
                 return redirect()->route('home');
             }
+        }elseif(auth()->attempt(['email' => $input['email'], 'password' => $input['password'], 'active' => 0])){
+            return redirect()
+            ->back()
+            ->with("error",'Your Account still pending check your gmail for confirmation.');
         }
         else
         {
