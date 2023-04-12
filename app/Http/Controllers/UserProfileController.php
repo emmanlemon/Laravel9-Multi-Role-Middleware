@@ -17,24 +17,32 @@ class UserProfileController extends Controller
         ->first();
 
         if(auth()->user()->role === 'super'){
-
+            return view('superadmin.profile.changeProfile', compact('user'));
         }elseif(auth()->user()->role === 'admin'){
-            return view('admin.profile.changePassword', compact('user'));
+            return view('admin.profile.changeProfile', compact('user'));
         }elseif(auth()->user()->role === 'user'){
-
+            return view('user.profile.changeProfile', compact('user'));
         }
     }
 
     public function updateProfile(Request $request ,User $user){
-        if($request->new_pass != $request->confirm_pass){
-            return redirect()->back()->with('error', 'Your Password Does Not Match');
-        }else{
+        if(empty($request->new_pass && $request->confirm_pass)){
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => $request->new_pass,
-            ]);           
-            return redirect()->back()->with('success', 'Your Password Update Successfully');
+            ]); 
+            return redirect()->back()->with('success', 'Your Profile Data Update Successfully');
+        }else{
+            if($request->new_pass != $request->confirm_pass){
+                return redirect()->back()->with('error', 'Your Password Does Not Match');
+            }else{
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->new_pass,
+                ]);           
+            return redirect()->back()->with('success', 'Your Profile Data Update Successfully');
+            }
         }
     }
 
@@ -45,6 +53,6 @@ class UserProfileController extends Controller
         $fileNameImage = $request->profile_image->getClientOriginalName();
         $filePathImage = 'storage/images/' . $fileNameImage;
         $request->profile_image->move(public_path('storage/images/'), $fileNameImage);
-        return redirect()->back()->with('updateImg', 'Your Logo Image Update Successfully');
+        return redirect()->back()->with('updateImg', 'Your Profile Image Update Successfully');
     }
 }

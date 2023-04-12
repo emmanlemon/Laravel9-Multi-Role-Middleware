@@ -46,11 +46,18 @@ class LoginController extends Controller
             'email'=>'required|email',
             'password'=>'required'
         ]);
-        if(auth()->attempt(['email' => $input['email'], 'password' => $input['password'], 'active' => 1]))
+        
+        if(auth()->attempt(['email' => $input['email'], 'password' => $input['password']]))
         {
             if(auth()->user()->role == 'admin')
             {
+                if(auth()->user()->active == 0){
+                    return redirect()
+                     ->route("login")
+                     ->with("error",'Your Account still pending check your gmail for confirmation.');
+                }else{
                     return redirect()->route('home.admin');
+                }
             }
             else if(auth()->user()->role == 'superadmin')
             {
@@ -60,16 +67,17 @@ class LoginController extends Controller
             {
                 return redirect()->route('home');
             }
-        }elseif(auth()->attempt(['email' => $input['email'], 'password' => $input['password'], 'active' => 0])){
-            return redirect()
-            ->back()
-            ->with("error",'Your Account still pending check your gmail for confirmation.');
         }
+        // elseif(auth()->attempt(['email' => $input['email'], 'password' => $input['password'], 'active' => 0])){
+        //     return redirect()
+        //     ->route("login")
+        //     ->with("error",'Your Account still pending check your gmail for confirmation.');
+        // }
         else
         {
             return redirect()
             ->route("login")
-            ->with("error",'Incorrect email or password');
+            ->with("error",'Incorrect Email or Password');
         }
     }
 }

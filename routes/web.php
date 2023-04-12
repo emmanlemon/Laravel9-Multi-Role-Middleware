@@ -71,9 +71,13 @@ Route::middleware(['auth','user-role:admin'])->group(function()
     Route::get("/admin/shops" , [ShopController::class,'myShop'])->name('shops.myShop');
     Route::put("/admin/shops/{shop}" , [ShopController::class,'myShopUpdate'])->name('shops.myShopUpdate');
     Route::put("/admin/shops/changeLogo/{shop}" , [ShopController::class,'changeLogo'])->name('shops.changeLogo');
-    Route::put("/admin/shops/changeImage/{user}" , [UserProfileController::class, 'profileImage' ])->name('user.changeProfileImage');
-    Route::get("/admin/shops/changeProfile" , [UserProfileController::class, 'changeProfile' ])->name('user.profile');
-    Route::put("/admin/shops/updateProfile/{user}" , [UserProfileController::class, 'updateProfile' ])->name('user.updateProfile');
     Route::resource("/admin/services" , ServiceController::class);
     // Route::resource("/service" , ServiceController::class);
+});
+
+//Profile All Route
+Route::middleware(['auth'])->group(function(){
+    Route::get("/changeProfile" , [UserProfileController::class, 'changeProfile' ])->name('user.profile');
+    Route::put("/changeImage/{user}" , [UserProfileController::class, 'profileImage' ])->name('user.changeProfileImage');
+    Route::put("/updateProfile/{user}" , [UserProfileController::class, 'updateProfile' ])->name('user.updateProfile');
 });

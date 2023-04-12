@@ -1,6 +1,3 @@
-@extends('layouts.app')
-@include('partials.admin.left-sidebar')
-@section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -98,6 +95,10 @@
                                     <div class="alert alert-success">
                                         {{ session('success') }}
                                     </div>
+                                    @elseif(session('updateImg'))
+                                    <div class="alert alert-success">
+                                        {{ session('updateImg') }}
+                                    </div>
                                     @endif
                                     <div class="row">
                                         <div class="col-md-6">
@@ -112,7 +113,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Date Created</label>
-                                                <input id="name" type="text" name="created_at" class="form-control" value="{{ $user->created_at }}" style="width: 100%;" disabled="">
+                                                <input id="name" type="text" name="created_at" class="form-control" value="{{ date('F j, Y, g:i a', strtotime($user->created_at)) }}" style="width: 100%;" disabled="">
                                             </div>
                                             <div class="form-group">
                                                 <label>Your Account Status</label>
@@ -131,11 +132,11 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>New Password:</label>
-                                                <input id="address" type="password" name="new_pass" class="form-control" style="width: 100%;" required="">
+                                                <input id="address" type="password" name="new_pass" class="form-control" style="width: 100%;">
                                             </div>
                                             <div class="form-group">
                                                 <label>Confirm Password:</label>
-                                                <input id="address" type="password" name="confirm_pass" class="form-control" style="width: 100%;" required="">
+                                                <input id="address" type="password" name="confirm_pass" class="form-control" style="width: 100%;">
                                             </div>
                                             <!-- /.form-group -->
                                         </div>
@@ -181,15 +182,4 @@
             </div>
           </div>
 </section>
-
-@endsection
-@section('js')
-    <script>
-        $(function() {
-            $('#datatable').DataTable({
-                responsive: true,
-                autoWidth: false,
-            });
-        });
-    </script>
-@stop
+@yield('changeProfile')
