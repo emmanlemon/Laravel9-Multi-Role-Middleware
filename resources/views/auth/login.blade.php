@@ -1,5 +1,4 @@
 @extends('layouts.no_layout')
-
 @section('content')
     <div class="d-flex justify-content-center">
         <div class="login-box">
@@ -7,6 +6,7 @@
                 <div class="login-logo">
                     <a href="../../index2.html"><b>Admin</b>LTE</a>
                 </div>
+
                 <!-- /.login-logo -->
                 <div class="card text-center">
                     <div class="card-body login-card-body ">
@@ -16,6 +16,10 @@
                             @if(session('error'))
                             <div class="alert alert-danger mt-2">
                                 {{ session('error') }}
+                            </div>
+                            @elseif(session('success'))
+                            <div class="alert alert-success mt-2">
+                                {{ session('success') }}
                             </div>
                             @endif
                             <div class="input-group mb-3">

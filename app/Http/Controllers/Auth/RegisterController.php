@@ -60,11 +60,10 @@ class RegisterController extends Controller
             $user->save();
         }
 
-        // Notification::route('mail', $data['email'])
-        //     ->notify(new ShopRegistration($user));
-        
+        Notification::route('mail', $data['email'])
+            ->notify(new ShopRegistration($user));
+
         return $user;
-        // return redirect()->back()->with('success', 'Your Account is created successfully check your gmail for other info.');
 
         } else {
             return User::create([
@@ -79,6 +78,7 @@ class RegisterController extends Controller
     {
         Auth::logout(); // Log out the newly registered user
 
-        return redirect($this->redirectPath());
+        return redirect()
+        ->route("login")->with('success', 'Your Account is created successfully check your gmail for other info.');
     }
 }

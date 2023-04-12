@@ -34,10 +34,10 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
 
     public function login(Request $request)
     {
@@ -46,7 +46,7 @@ class LoginController extends Controller
             'email'=>'required|email',
             'password'=>'required'
         ]);
-        
+
         if(auth()->attempt(['email' => $input['email'], 'password' => $input['password']]))
         {
             if(auth()->user()->role == 'admin')
