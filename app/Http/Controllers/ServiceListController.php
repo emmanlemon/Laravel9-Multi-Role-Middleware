@@ -91,6 +91,6 @@ class ServiceListController extends Controller
         $servicelist = ServiceList::findOrFail($id);
         // dd($servicelist->toArray());
         $servicelist->delete();
-        return redirect()->back()->with('message', 'Service Deleted Successfully.');
+        return redirect()->back()->with('delete', 'Service Deleted Successfully.');
     }
 }
